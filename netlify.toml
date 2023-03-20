@@ -1,4 +1,18 @@
 [build]
-  command = "yarn build" # the command you run to build this file
-  functions = "built-lambda" # netlify-lambda builds to this folder AND Netlify reads functions from here
-  publish = "build" # create-react-app builds to this folder, Netlify should serve all these files statically
+  command = "remix build"
+  functions = "netlify/functions"
+  publish = "public"
+
+[dev]
+  command = "remix watch"
+  port = 3000
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200
+
+[[headers]]
+  for = "/build/*"
+  [headers.values]
+    "Cache-Control" = "public, max-age=31536000, s-maxage=31536000"
